@@ -1,0 +1,22 @@
+{
+  "name": "love-letter-game",
+  "version": "1.0.0",
+  "homepage": "https://github.com/jasonrey/love-letter-game",
+  "authors": [
+    "Jason Rey <jasonrey@outlook.com>"
+  ],
+  "description": "Love Letter game",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "coffee-script": "~1.9.3",
+    "jquery": "~2.1.4",
+    "less": "~2.5.1"
+  }
+}
