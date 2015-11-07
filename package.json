@@ -1,8 +1,8 @@
 {
   "name": "love-letter-game",
   "version": "1.0.0",
-  "description": "Love Letter game",
-  "main": "server.js",
+  "description": "Love Letter Game",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/jasonrey/love-letter-game.git"
   },
-  "author": "JSON Object",
+  "author": "JSON object",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jasonrey/love-letter-game/issues"
@@ -18,7 +18,6 @@
   "homepage": "https://github.com/jasonrey/love-letter-game#readme",
   "dependencies": {
     "express": "^4.13.3",
-    "jade": "^1.11.0",
-    "socket.io": "^1.3.6"
+    "socket.io": "^1.3.7"
   }
 }
