@@ -12,5 +12,9 @@ html
 		script(type="text/javascript", src="statics/jquery.min.js")
 		script(type="text/javascript", src="javascripts/index.js")
 	body
-		.page
-			block content
+		block content
+		.already-connected
+			.already-connected-text
+				="An existing connection found."
+				br
+				="Only 1 concurrent connection is allowed."

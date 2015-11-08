@@ -1,41 +1,46 @@
 extends dom
 
 block content
-	.container.align-center
-		.inline-block
-			h1.title.align-center Love Letter
-			.frames-view(data-frame=hasName ? "1" : "0")
-				.frames
-					form.frame.register-frame
-						label.register-title Hello, I need a name.
-						label.register-error.error Name has been taken.
-						input.align-center(type="input")
-						.clearfix
-							button.float-right.start-button
-								span Go
-					.frame.roomlist-frame
-						h2.greeting="Hi "
-							span.greeting-name=hasName ? name : ""
-							="."
-						h2 Select or create a room.
-						ul.roomlist.align-left
-							li Room 1
-							li Room 2
-							li Room 3
-							li Room 3
-							li Room 3
-							li Room 3
-							li Room 3
-							li Room 3
-						.clearfix
-							button.float-right.create-button
-								span Create a Room
-					form.frame.createroom-frame
-						label.createroom-title Let's give a room name.
-						label.createroom-error.error Name has been taken.
-						input.align-center(type="input")
-						.clearfix
-							button.float-left.back-button
-								span Back
-							button.float-right.create-button
-								span Create
+	.pages-view.container.align-center(data-page="0", data-name=hasName ? name : "")
+		.pages
+			.page.index-page.container
+				.inline-block
+					h1.title.align-center Love Letter
+					.frames-view(data-frame=hasName ? "1" : "0")
+						.frames
+							form.frame.register-frame
+								label.register-title Hello, I need a name.
+								label.register-error.error Name has been taken.
+								input.align-center(type="input")
+								.clearfix
+									button.float-right.start-button
+										span Go
+							.frame.roomlist-frame
+								h2.greeting="Hi "
+									span.greeting-name=hasName ? name : ""
+									="."
+								h2 Select or create a room.
+								ul.roomlist.align-left
+									each room in rooms
+										li(data-id=room.id)
+											.room-name= room.name
+											.room-owner= room.ownerName
+											.room-total= room.total + " / 4"
+								.clearfix
+									button.float-right.create-button
+										span Create a Room
+							form.frame.createroom-frame.ready
+								label.createroom-title Let's give a room name.
+								label.createroom-error.error Name has been taken.
+								input.align-center(type="input")
+								.clearfix
+									button.float-left.back-button(type="button")
+										span Back
+									button.float-right.create-button
+										span Create
+			.page.game-page.container test
+	script(type="text/html", id="roomlist-item")
+		li(data-id="{{id}}")
+			.room-name {{name}}
+			.room-owner {{ownerName}}
+			.room-total {{total}} / 4

@@ -1,14 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-	var name = req.cookies.name,
-		hasName = name !== undefined && name.length > 0;
+module.exports = function(data) {
+	router.get('/', function(req, res, next) {
+		var name = req.cookies.name,
+			hasName = name !== undefined && name.length > 0;
 
-	res.render('index', {
-		name: name,
-		hasName: hasName
+		res.render('index', {
+			name: name,
+			hasName: hasName,
+			rooms: data.rooms
+		});
 	});
-});
 
-module.exports = router;
+	return router;
+};

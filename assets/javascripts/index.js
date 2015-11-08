@@ -11,12 +11,45 @@ var socket = io();
 		});
 	};
 
+	var $template = function(id, data, toString) {
+		var item = $(identifier).html();
+
+		item = item.replace(RegExp('\\{\\{(.+?)\\}\\}', 'g'), function(match, p1) {
+			return data[p1] !== undefined ? data[p1] : '';
+		});
+
+		if (toString === true) {
+			return item;
+		}
+
+		return $(item);
+	};
+
 	$(function() {
 		var $body = $('body'),
+			$page = $('.pages-view'),
 			$frame = $('.frames-view'),
 			$registerFrame = $('.register-frame'),
 			$roomlistFrame = $('.roomlist-frame'),
 			$createroomFrame = $('.createroom-frame');
+
+		socket.on('connect', function() {
+			var name = $page.attr('data-name');
+
+			if (name.length > 0) {
+				$ajax('user/register', {
+					id: socket.id,
+					name: name
+				}).done(function(response) {
+					if (!response.state) {
+						console.log('here');
+						$('.already-connected').addClass('active');
+					}
+				});
+			}
+		});
+
+		$createroomFrame.find('input').val('Room ' + Date.now().toString().slice(-6));
 
 		$registerFrame.on('keyup', 'input', function(ev) {
 			var input = $(this),
@@ -47,6 +80,12 @@ var socket = io();
 
 		$roomlistFrame.on('click', '.create-button', function(ev) {
 			$frame.attr('data-frame', '2');
+
+			$createroomFrame.find('input').trigger('select');
+		});
+
+		$roomlistFrame.on('click', '.roomlist li', function() {
+			$page.attr('data-page', '1');
 		});
 
 		$createroomFrame.on('keyup', 'input', function(ev) {
@@ -62,6 +101,20 @@ var socket = io();
 
 		$createroomFrame.on('submit', function(ev) {
 			ev.preventDefault();
+
+			var name = $createroomFrame.find('input').val();
+
+			$ajax('room/register', {
+				id: socket.id,
+				name: name
+			}).done(function(response) {
+				if (response.state) {
+					$createroomFrame.removeClass('error');
+					$page.attr('data-page', '1');
+				} else {
+					$createroomFrame.addClass('error');
+				}
+			});
 		});
 	});
 })();

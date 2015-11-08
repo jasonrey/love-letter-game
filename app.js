@@ -8,9 +8,12 @@ var express = require('express'),
 
 var data = {
 	connections: {},
+	// name: id
 	users: {},
+	// id: name
 	usersMap: {},
-	rooms: {}
+	rooms: {},
+	roomsMap: {}
 };
 
 app.set('views', path.join(__dirname, 'views'));
@@ -21,7 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', require('./routes/index'));
+app.use('/', require('./routes/index')(data));
 app.use('/api', require('./routes/api')(data));
 
 io.on('connection', function(socket) {
