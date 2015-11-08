@@ -1,0 +1,169 @@
+@import "colors";
+
+* {
+	outline: none;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.01);
+	color: rgba(0, 0, 0, 0.87);
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	font-weight: 300;
+}
+
+table {
+	width: 100%;
+	max-width: 100%;
+	background-color: transparent;
+	border-spacing: 0;
+	border-collapse: collapse;
+}
+
+a {
+	display: inline-block;
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+p {
+	margin: 0;
+}
+
+.page {
+	height: 100%;
+}
+
+.container {
+	margin: auto;
+	width: 1160px;
+
+	@media (max-width: 1240px) {
+		width: 760px;
+	}
+
+	@media (max-width: 780px) {
+		width: 360px;
+	}
+
+	@media (max-width: 380px) {
+		width: 320px;
+	}
+}
+
+.align-center {
+	text-align: center;
+}
+
+.align-left {
+	text-align: left;
+}
+
+.align-right {
+	text-align: right;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
+}
+
+.clearfix {
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+h1, h2, h3, h4, h5 {
+	font-weight: normal;
+	margin: 0;
+}
+
+input[type="input"] {
+	display: block;
+	width: 100%;
+	position: relative;
+	margin: 16px 0;
+	padding: 8px 12px;
+	height: 64px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 32px;
+	font-weight: 300;
+	border: 0;
+	border-bottom: 2px solid @grey200;
+	outline: 0;
+	transition: all .3s;
+	background-color: transparent;
+	color: @blue500;
+
+	&:focus {
+		color: @blue900;
+		border-color: @blue500;
+	}
+}
+
+label {
+	font-size: 20px;
+	display: block;
+
+	&.error {
+		color: @red500;
+	}
+}
+
+button {
+	outline: 0;
+	background: none;
+	border: 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	color: @blue500;
+	cursor: pointer;
+	padding: 0 8px;
+
+	span {
+		display: block;
+		padding: 8px 4px;
+		border-bottom: 2px solid transparent;
+	}
+
+	&:hover {
+		span {
+			border-color: @blue500;
+		}
+	}
+
+	&.float-left {
+		margin: 0 0 0 -8px;
+	}
+
+	&.float-right {
+		margin: 0 -8px 0 0;
+	}
+}

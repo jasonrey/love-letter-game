@@ -1,0 +1,151 @@
+@import "colors";
+
+.frames-view {
+	width: 370px;
+	overflow-x: hidden;
+	overflow-y: visible;
+
+	.frames {
+		position: relative;
+		width: 360px * 3;
+		transition: transform .3s;
+		margin: 0 5px;
+
+		&::after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+
+		[data-frame="0"]& {
+			transform: translateX(0);
+		}
+
+		[data-frame="1"]& {
+			transform: translateX(-360px);
+		}
+
+		[data-frame="2"]& {
+			transform: translateX(-360px * 2);
+		}
+
+		.frame {
+			width: 360px;
+			opacity: 0;
+			float: left;
+			transition: opacity .3s;
+
+			&:nth-child(1) {
+				[data-frame="0"]& {
+					opacity: 1;
+				}
+			}
+
+			&:nth-child(2) {
+				[data-frame="1"]& {
+					opacity: 1;
+				}
+			}
+
+			&:nth-child(3) {
+				[data-frame="2"]& {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+.title {
+	margin: 32px 0;
+	font-weight: 300;
+	font-size: 72px;
+}
+
+.register-frame {
+	padding: 32px;
+
+	.register-error {
+		display: none;
+	}
+
+	.start-button {
+		visibility: hidden;
+		opacity: 0;
+		transition: all .3s;
+
+		.ready& {
+			visibility: visible;
+			opacity :1;
+		}
+	}
+
+	&.error {
+		.register-title {
+			display: none;
+		}
+
+		.register-error {
+			display: block;
+		}
+	}
+}
+
+.roomlist-frame {
+	h2 {
+		font-weight: 300;
+	}
+
+	.greeting-name {
+		color: @blue500;
+	}
+
+	.roomlist {
+		overflow-x: hidden;
+		overflow-y: auto;
+		border-radius: 4px;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+		max-height: 200px;
+		margin: 16px 0;
+
+		li {
+			padding: 16px;
+			cursor: pointer;
+			font-weight: 400;
+
+			&:hover {
+				color: @blue500;
+				background-color: @blue50;
+			}
+		}
+	}
+}
+
+.createroom-frame {
+	padding: 32px;
+
+	.createroom-error {
+		display: none;
+	}
+
+	.create-button {
+		visibility: hidden;
+		opacity: 0;
+		transition: all .3s;
+
+		.ready& {
+			visibility: visible;
+			opacity :1;
+		}
+	}
+
+	&.error {
+		.createroom-title {
+			display: none;
+		}
+
+		.createroom-error {
+			display: block;
+		}
+	}
+}
