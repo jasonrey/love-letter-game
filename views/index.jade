@@ -24,7 +24,7 @@ block content
 									each room in rooms
 										li(data-id=room.id)
 											.room-name= room.name
-											.room-owner= room.ownerName
+											.room-owner= room.owner.name
 											.room-total= room.total + " / 4"
 								.clearfix
 									button.float-right.create-button

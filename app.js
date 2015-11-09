@@ -4,17 +4,9 @@ var express = require('express'),
 	cookieParser = require('cookie-parser')
 	path = require('path'),
 	http = require('http').Server(app),
-	io = require('socket.io')(http);
-
-var data = {
-	connections: {},
-	// name: id
-	users: {},
-	// id: name
-	usersMap: {},
-	rooms: {},
-	roomsMap: {}
-};
+	io = require('socket.io')(http),
+	data = require('./classes/data'),
+	User = require('./classes/user');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -24,16 +16,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', require('./routes/index')(data));
-app.use('/api', require('./routes/api')(data));
+app.use('/', require('./routes/index'));
+app.use('/api', require('./routes/api'));
 
 io.on('connection', function(socket) {
-	data.connections[socket.id] = socket;
+	var user = new User(socket);
+	data.users[socket.id] = user;
 
 	socket.on('disconnect', function() {
-		delete data.connections[socket.id];
-		delete data.users[data.usersMap[socket.id]];
-		delete data.usersMap[socket.id];
+		delete data.usersNameMap[user.name]
+		delete data.users[socket.id];
+
+		if (user.roomid.length > 0) {
+			delete data.roomsNameMap[data.rooms[user.roomid].name];
+			delete data.rooms[user.roomid];
+		}
 	});
 
 	socket.on('log', function() {

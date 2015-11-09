@@ -1,17 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var data = require('./../classes/data')
 
-module.exports = function(data) {
-	router.get('/', function(req, res, next) {
-		var name = req.cookies.name,
-			hasName = name !== undefined && name.length > 0;
+router.get('/', function(req, res, next) {
+	var name = req.cookies.name,
+		hasName = name !== undefined && name.length > 0;
 
-		res.render('index', {
-			name: name,
-			hasName: hasName,
-			rooms: data.rooms
-		});
+	res.render('index', {
+		name: name,
+		hasName: hasName,
+		rooms: data.rooms
 	});
+});
 
-	return router;
-};
+module.exports = router;
