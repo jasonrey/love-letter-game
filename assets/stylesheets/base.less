@@ -159,6 +159,17 @@ button {
 		}
 	}
 
+	&.disabled {
+		color: @blue200;
+		cursor: default;
+
+		&:hover {
+			span {
+				border-color: transparent;
+			}
+		}
+	}
+
 	&.float-left {
 		margin: 0 0 0 -8px;
 	}

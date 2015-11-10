@@ -1,12 +1,15 @@
 var express = require('express'),
 	app = express(),
-	bodyParser = require('body-parser')
-	cookieParser = require('cookie-parser')
+	bodyParser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
+	compression = require('compression'),
 	path = require('path'),
 	http = require('http').Server(app),
 	io = require('socket.io')(http),
 	data = require('./classes/data'),
 	User = require('./classes/user');
+
+app.use(compression());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

@@ -11,7 +11,7 @@ var socket = io();
 		});
 	};
 
-	var $template = function(id, data, toString) {
+	var $template = function(identifier, data, toString) {
 		var item = $(identifier).html();
 
 		item = item.replace(RegExp('\\{\\{(.+?)\\}\\}', 'g'), function(match, p1) {
@@ -31,7 +31,29 @@ var socket = io();
 			$frame = $('.frames-view'),
 			$registerFrame = $('.register-frame'),
 			$roomlistFrame = $('.roomlist-frame'),
-			$createroomFrame = $('.createroom-frame');
+			$createroomFrame = $('.createroom-frame'),
+			$roomlist = $roomlistFrame.find('.roomlist'),
+			$refreshButton = $roomlistFrame.find('.refresh-button');
+
+		var roomRefreshTimeout,
+			roomRefresh = function() {
+				clearTimeout(roomRefreshTimeout);
+
+				$refreshButton.addClass('disabled');
+
+				$ajax('rooms/get').done(function(response) {
+					$refreshButton.removeClass('disabled');
+					roomRefreshTimeout = setTimeout(roomRefresh, 10000);
+
+					$roomlist.empty();
+
+					$.each(response.rooms, function(i, room) {
+						$roomlist.append($template('#roomlist-item', room));
+					});
+				});
+			}
+
+		roomRefresh();
 
 		socket.on('connect', function() {
 			var name = $page.attr('data-name');
@@ -84,7 +106,19 @@ var socket = io();
 			$createroomFrame.find('input').trigger('select');
 		});
 
+		$roomlistFrame.on('click', '.refresh-button', function(ev) {
+			var button = $(this);
+
+			if (button.hasClass('disabled')) {
+				return;
+			}
+
+			roomRefresh();
+		});
+
 		$roomlistFrame.on('click', '.roomlist li', function() {
+			clearTimeout(roomRefreshTimeout);
+
 			$page.attr('data-page', '1');
 		});
 
@@ -111,6 +145,8 @@ var socket = io();
 				if (response.state) {
 					$createroomFrame.removeClass('error');
 					$page.attr('data-page', '1');
+
+					clearTimeout(roomRefreshTimeout);
 				} else {
 					$createroomFrame.addClass('error');
 				}

@@ -21,12 +21,9 @@ block content
 									="."
 								h2 Select or create a room.
 								ul.roomlist.align-left
-									each room in rooms
-										li(data-id=room.id)
-											.room-name= room.name
-											.room-owner= room.owner.name
-											.room-total= room.total + " / 4"
 								.clearfix
+									button.float-left.refresh-button
+										span Refresh
 									button.float-right.create-button
 										span Create a Room
 							form.frame.createroom-frame.ready

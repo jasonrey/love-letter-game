@@ -44,9 +44,21 @@ router.post('/room/register', function(req, res, next) {
 });
 
 router.post('/rooms/get', function(req, res, next) {
-	console.log(data.rooms);
+	var rooms = {};
+
+	for (var roomid in data.rooms) {
+		var room = data.rooms[roomid];
+
+		rooms[roomid] = {
+			id: roomid,
+			name: room.name,
+			ownerName: room.owner.name,
+			total: room.total
+		}
+	}
+
 	res.json({
-		rooms: data.rooms
+		rooms: rooms
 	});
 });
 

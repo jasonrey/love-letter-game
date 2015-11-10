@@ -18,6 +18,7 @@
   "homepage": "https://github.com/jasonrey/love-letter-game#readme",
   "dependencies": {
     "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
     "cookie-parser": "^1.4.0",
     "express": "^4.13.3",
     "jade": "^1.11.0",
